@@ -5,11 +5,13 @@
     "outDir": "./out-tsc/spec",
     "types": [
       "jest",
+      "cypress",
       "node"
     ]
   },
   "include": [
     "src/**/*.spec.ts",
-    "src/**/*.d.ts"
+    "src/**/*.d.ts",
+    "cypress.config.ts"
   ]
 }
