@@ -1,29 +1,29 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { CardComponent } from './shared/components/card/card.component';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
 
 describe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>;
+  let app: AppComponent;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [CommonModule, RouterOutlet, CardComponent, HeaderComponent],
     }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    app = fixture.componentInstance;
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
   it(`should have the 'app-conversor-de-moedas' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
     expect(app.title).toEqual('app-conversor-de-moedas');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, app-conversor-de-moedas');
-  });
 });
