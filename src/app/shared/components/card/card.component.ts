@@ -19,16 +19,17 @@ export class CardComponent implements OnInit {
   }
 
   getColorValue(): string{
-    console.log(this.currency?.bid)
-    if(this.currency && this.currency.bid){
-      if (this.currency.bid <= 1) {
-        return 'color-red';
-      } else if (this.currency.bid  <= 5) {
-        return 'color-blue';
-      } else {
-        return 'color-green';
-      }
-    } else return ''
+    if(!(this.currency && this.currency.bid)) return 'color-gray'
+
+    const lowValue = this.currency.bid <= 1
+    const midiumValue = this.currency.bid <= 5
+    const highValue =  this.currency.bid > 5
+
+    if(lowValue) return 'color-red'
+    if(midiumValue) return 'color-blue'
+    if(highValue) return 'color-green'
+
+    return 'color-gray'
   }
 
 }
