@@ -1,23 +1,27 @@
-@if (refresh) {
-  <div>
-    <img src="./../../../../assets/images/loader.svg" alt="">
+@if (currency) {
+  <div class="card">
+    <div class="card-header">
+      <h2>{{ currency.name }}</h2>
+    </div>
+    <div
+      class="card-body"
+      [ngClass]="classColor"
+      >
+      {{ currency.bid | currency:'BRL'}}
+    </div>
+    <div class="card-footer">
+      <div>
+        <h3>valor</h3>
+        <span>{{ currency.varBid }}</span>
+      </div>
+      <div>
+        <h3>data</h3>
+        <span>{{ currency.create_date | date : "HH:mm:ss" }}</span>
+      </div>
+    </div>
   </div>
 } @else {
- <div class="card">
-  <div class="card-header">
-    <h2>Dólar Canadense</h2>
+  <div>
+    <img src="./../../../../assets/images/loader.svg" alt="" />
   </div>
-  <div class="card-body">R$4,37
-  </div>
-  <div class="card-footer">
-    <div>
-        <h3>valor</h3>
-        <span>-0,11</span>
-    </div>
-    <div>
-        <h3>data</h3>
-        <span>08:01:23</span>
-    </div>
-  </div>
- </div>
 }
