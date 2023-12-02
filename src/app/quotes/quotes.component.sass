@@ -1,0 +1,55 @@
+.quotes
+  display: grid
+  background-color: #EEEEEE
+  grid-template-columns: 1fr 1.5fr 1.5fr 1.5fr 1fr
+  grid-template-rows: 1fr 1fr 1fr
+  justify-content: center
+  align-items: center
+  padding: 95px 0 20px
+  height: calc(100vh - 65px)
+  gap: 50px
+
+  app-card
+    display: flex
+    justify-content: center
+    text-align: center
+
+  .dolar
+    grid-column-start: 2
+    grid-row-start: 2
+
+  .peso
+    grid-column-start: 3
+    grid-row-start: 2
+
+  .libra
+    grid-column-start: 4
+    grid-row-start: 2
+
+  @media (max-width: 1000px)
+    grid-template-columns: 1fr 3.5fr 3.5fr 3.5fr 1fr
+
+  @media (max-width: 767px)
+    grid-template-columns: 1fr 2fr 1fr
+    grid-template-rows: 1fr
+    padding-top: 80px
+    gap: 10px
+
+    app-card
+      margin-bottom: 20px
+
+    .dolar
+      grid-column-start: 2
+      grid-row-start: 1
+
+    .peso
+      grid-column-start: 2
+      grid-row-start: 2
+
+    .libra
+      grid-column-start: 2
+      grid-row-start: 3
+
+  @media (max-width: 400px)
+    grid-template-columns: 1fr 8fr 1fr
+

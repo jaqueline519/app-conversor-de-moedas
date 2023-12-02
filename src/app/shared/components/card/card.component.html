@@ -1,1 +1,23 @@
-<p>card works!</p>
+@if (refresh) {
+  <div>
+    <img src="./../../../../assets/images/loader.svg" alt="">
+  </div>
+} @else {
+ <div class="card">
+  <div class="card-header">
+    <h2>Dólar Canadense</h2>
+  </div>
+  <div class="card-body">R$4,37
+  </div>
+  <div class="card-footer">
+    <div>
+        <h3>valor</h3>
+        <span>-0,11</span>
+    </div>
+    <div>
+        <h3>data</h3>
+        <span>08:01:23</span>
+    </div>
+  </div>
+ </div>
+}

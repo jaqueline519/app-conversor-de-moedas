@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { CardComponent } from './shared/components/card/card.component';
-import { HeaderComponent } from './shared/components/header/header.component';
+import { HeaderComponent } from './header/header.component';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
@@ -11,7 +11,7 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CommonModule, RouterOutlet, CardComponent, HeaderComponent],
+      imports: [CommonModule, RouterOutlet, HeaderComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
