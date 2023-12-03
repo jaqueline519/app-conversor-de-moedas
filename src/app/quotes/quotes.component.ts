@@ -1,13 +1,15 @@
-import { Component, NgZone, OnDestroy, OnInit, inject, ChangeDetectorRef, ChangeDetectionStrategy  } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit, inject, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { CardComponent } from '../shared/components/card/card.component';
 import { CurrencyModel } from '../shared/models/currency.model';
 import { Observable, Subscription, catchError, switchMap, throwError, timer } from 'rxjs';
 import { LoadingService } from '../shared/services/loading/loading.service';
 import { QuotationsService } from '../shared/services/quatations/quotations.service';
+import { CommonModule } from '@angular/common';
+import { classesKey, currenciesKey, namesKey } from '../shared/dictionaries/dictionary';
 @Component({
   selector: 'app-quotes',
   standalone: true,
-  imports: [CardComponent],
+  imports: [CommonModule, CardComponent],
   templateUrl: './quotes.component.html',
   styleUrl: './quotes.component.sass',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -17,9 +19,12 @@ export class QuotesComponent implements OnInit, OnDestroy {
   dolarCanadense: CurrencyModel | any
   pesoArgentino: CurrencyModel | any
   libraEsterlina: CurrencyModel | any
-  errorQuatations: boolean = false
+  errorQuotations: boolean = false
   private subscription: Subscription = new Subscription()
   timer$: Observable<number> = timer(180000, 180000)
+  currencies: { [key: string]: CurrencyModel } = currenciesKey
+  classes: { [key: string]: any } = classesKey
+  names: { [key: string]: any } = namesKey
 
   constructor(
     private quatationsService: QuotationsService,
@@ -29,63 +34,57 @@ export class QuotesComponent implements OnInit, OnDestroy {
     inject(NgZone).runOutsideAngular(() => {
       this.toUpdateQuatation()
     })
-
   }
+
   ngOnInit(): void {
     this.loadingService.showLoading()
-    this.getQuatation()
+    this.getQuotation()
   }
 
-  getQuatation() {
+  getQuotation() {
     this.loadingService.showLoading()
-    this.errorQuatations = true
-    this.quatationsService.getQuotations(`CAD-BRL,ARS-BRL,GBP-BRL`)
-    .pipe(
-      catchError(error => {
-        this.loadingService.hideLoading()
-        if(error){
-          this.errorQuatations = true
-          this.changeDetection.detectChanges()
-        }
-        return throwError(() => error)
-      })
-    )
+    this.errorQuotations = true
+    this.quatationsService.getQuotations('CAD-BRL,ARS-BRL,GBP-BRL')
+      .pipe(
+        catchError(error => {
+          this.loadingService.hideLoading()
+          if (error) {
+            this.errorQuotations = true
+            this.changeDetection.detectChanges()
+          }
+          return throwError(() => error)
+        })
+      )
       .subscribe((response: any) => {
         this.loadingService.hideLoading()
         this.returnObjectsCurrencys(response)
       })
   }
 
-  formatText(currency: CurrencyModel) {
-    const name = currency.name;
-    const splitName = name?.split('/')
-    return splitName ? splitName[0] : ''
-  }
-
   toUpdateQuatation() {
     this.loadingService.showLoading()
     this.subscription = this.timer$.pipe(
-      switchMap(() => this.quatationsService.getQuotations(`CAD-BRL,ARS-BRL,GBP-BRL`)),
+      switchMap(() => this.quatationsService.getQuotations('CAD-BRL,ARS-BRL,GBP-BRL')),
     )
-    .pipe(
-      catchError(error => {
-        if(error){
-          this.loadingService.hideLoading()
-          this.changeDetection.detectChanges()
-        }
-        return throwError(() => error)
+      .pipe(
+        catchError(error => {
+          if (error) {
+            this.loadingService.hideLoading()
+            this.changeDetection.detectChanges()
+          }
+          return throwError(() => error)
+        })
+      )
+      .subscribe(response => {
+        this.loadingService.hideLoading()
+        this.returnObjectsCurrencys(response)
       })
-    )
-    .subscribe(response => {
-      this.loadingService.hideLoading()
-      this.returnObjectsCurrencys(response)
-    })
   }
 
   returnObjectsCurrencys(objectCurrency: any) {
-    this.dolarCanadense = { ...objectCurrency['CADBRL'], name: this.formatText(objectCurrency['CADBRL']) }
-    this.pesoArgentino = { ...objectCurrency['ARSBRL'], name: this.formatText(objectCurrency['ARSBRL']) }
-    this.libraEsterlina = { ...objectCurrency['GBPBRL'], name: this.formatText(objectCurrency['GBPBRL']) }
+    this.currencies['CAD-BRL'] = objectCurrency['CADBRL']
+    this.currencies['ARS-BRL'] = objectCurrency['ARSBRL']
+    this.currencies['GBP-BRL'] = objectCurrency['GBPBRL']
     this.changeDetection.detectChanges();
   }
 

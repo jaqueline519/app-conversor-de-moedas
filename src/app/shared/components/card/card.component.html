@@ -2,18 +2,18 @@
   <div class="card-header">
     <h2>{{ name }}</h2>
   </div>
-  @if(currency){
+  @if(currency && isObjectNotEmpty(currency)){
   <div class="card-body" [ngClass]="currency.bid | colors">
     {{ currency.bid | currency:'BRL'}}
   </div>
   <div class="card-footer">
     <div>
-      <h3>valor</h3>
+      <h3>variação(%)</h3>
       <span>{{ currency.varBid }}</span>
     </div>
     <div>
-      <h3>data</h3>
-      <span>{{ currency.create_date | date : "HH:mm:ss" }}</span>
+      <h3>Atualizado</h3>
+      <span>{{currentDateTime | date : "HH:mm:ss" }}</span>
     </div>
   </div>
   } @else if(errorApi && !loading){

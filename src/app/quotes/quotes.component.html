@@ -1,23 +1,9 @@
 <div class="quotes">
-  <app-card
-    class="dolar"
-    [currency]="dolarCanadense"
-    [name]="'Dólar Canadence'"
-    (refresh)="getQuatation()"
-    [errorApi]="errorQuatations"
-  ></app-card>
-  <app-card
-    class="peso"
-    [currency]="pesoArgentino"
-    [name]="'Peso Argentino'"
-    (refresh)="getQuatation()"
-    [errorApi]="errorQuatations"
-  ></app-card>
-  <app-card
-    class="libra"
-    [currency]="libraEsterlina"
-    [name]="'Libra Esterlina'"
-    (refresh)="getQuatation()"
-    [errorApi]="errorQuatations"
-  ></app-card>
+  <app-card *ngFor="let currencyCode of ['CAD-BRL', 'ARS-BRL', 'GBP-BRL']"
+  [class]="classes[currencyCode]"
+  [name]="names[currencyCode]"
+  [currency]="currencies[currencyCode]"
+  (refresh)="getQuotation()"
+  [errorApi]="errorQuotations"
+></app-card>
 </div>

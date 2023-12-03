@@ -10,4 +10,5 @@ export interface CurrencyModel {
   ask?: string
   timestamp?: number
   create_date?: string
+  class?: string
 }
