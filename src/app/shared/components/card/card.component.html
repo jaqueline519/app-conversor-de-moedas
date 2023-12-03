@@ -1,27 +1,29 @@
-@if (currency) {
-  <div class="card">
-    <div class="card-header">
-      <h2>{{ currency.name }}</h2>
+<div class="card">
+  <div class="card-header">
+    <h2>{{ name }}</h2>
+  </div>
+  @if(currency){
+  <div class="card-body" [ngClass]="classColor">
+    {{ currency.bid | currency:'BRL'}}
+  </div>
+  <div class="card-footer">
+    <div>
+      <h3>valor</h3>
+      <span>{{ currency.varBid }}</span>
     </div>
-    <div
-      class="card-body"
-      [ngClass]="classColor"
-      >
-      {{ currency.bid | currency:'BRL'}}
-    </div>
-    <div class="card-footer">
-      <div>
-        <h3>valor</h3>
-        <span>{{ currency.varBid }}</span>
-      </div>
-      <div>
-        <h3>data</h3>
-        <span>{{ currency.create_date | date : "HH:mm:ss" }}</span>
-      </div>
+    <div>
+      <h3>data</h3>
+      <span>{{ currency.create_date | date : "HH:mm:ss" }}</span>
     </div>
   </div>
-} @else {
-  <div>
-    <img src="./../../../../assets/images/loader.svg" alt="" />
-  </div>
-}
+  } @else if(errorApi && !loading){
+    <div class="align error">
+      <p class="color-gray">Algo deu errado</p>
+      <button class="color-gray" (click)="onRefresh()">RECARREGAR</button>
+    </div>
+  }  @else if(loading){
+    <div class="align">
+      <img src="./../../../../assets/images/loader.svg" alt="" />
+    </div>
+  }
+</div>

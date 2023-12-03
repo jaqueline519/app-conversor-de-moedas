@@ -1,23 +1,38 @@
 import { CurrencyPipe, DatePipe, NgClass } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CurrencyModel } from '../../models/currency.model';
+import { LoadingService } from '../../services/loading/loading.service';
+
 
 @Component({
   selector: 'app-card',
   standalone: true,
   imports: [CurrencyPipe, DatePipe, NgClass],
   templateUrl: './card.component.html',
-  styleUrl: './card.component.sass'
+  styleUrl: './card.component.sass',
 })
-export class CardComponent implements OnInit {
+export class CardComponent implements OnInit, AfterViewInit{
 
-  @Input() currency: CurrencyModel | undefined;
+  constructor(public loadingService: LoadingService){}
+
+  @Input() currency: CurrencyModel | undefined
+  @Input() name: string = ''
+  @Output() refresh = new EventEmitter<boolean>()
+  @Input() errorApi: boolean = false
+  loading: boolean = false
   classColor: string = ''
 
   ngOnInit(): void {
+    this.loadingService.loading$.subscribe((loading) => {
+      this.loading = loading;
+      this.classColor = this.getColorValue()
+    });
     this.classColor = this.getColorValue()
   }
 
+  ngAfterViewInit(): void {
+    this.classColor = this.getColorValue()
+  }
   getColorValue(): string{
     if(!(this.currency && this.currency.bid)) return 'color-gray'
 
@@ -30,6 +45,10 @@ export class CardComponent implements OnInit {
     if(highValue) return 'color-green'
 
     return 'color-gray'
+  }
+
+  onRefresh(){
+    this.refresh.emit(true)
   }
 
 }

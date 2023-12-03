@@ -1,13 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,600;0,700;1,500&family=Roboto:ital,wght@0,100;0,400;1,300&display=swap')
 $backgound-header: #F6F6F6
-$backgound-card: #FFFFFF
+$colorWhite: #FFFFFF
 $grayColor: #919191
+$darkGrayColor: #717171
+$blueColor: #3684CB
 
 .card
   display: grid
   grid-template-rows: 1fr 2fr 1fr
   width: 100%
   border-radius: 6px
-  background-color: $backgound-card
+  background-color: $colorWhite
   height: 270px
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px
   @media (max-width: 1200px)
@@ -23,6 +26,7 @@ $grayColor: #919191
   font-size: 2rem
   align-items: center
   justify-content: center
+  font-weight: 600
 
 .card-footer
   padding: 20px
@@ -30,7 +34,7 @@ $grayColor: #919191
   grid-template-columns: repeat(2, 1fr)
 
 h2, span
-  color: #717171
+  color: $darkGrayColor
 
 h2
   font-size: 1rem
@@ -47,6 +51,29 @@ h2
 .color-gray
   color: $grayColor
 
-
 h3
   color: $grayColor
+
+.align
+  justify-self: center
+  align-self: flex-end
+
+.error
+  display: flex
+  flex-direction: column
+  gap: 10px
+  font-weight: 400
+
+button
+  border-radius: 6px
+  border: none
+  width: 8rem
+  height: 1.5rem
+  cursor: pointer
+  font-size: 12px
+  font-weight: 600
+  &:hover
+    color: $darkGrayColor
+  &:active
+    background-color: $blueColor
+    color: $colorWhite

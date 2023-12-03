@@ -12,9 +12,9 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideClientHydration(),
-    importProvidersFrom(HttpClientModule),
+    // importProvidersFrom(HttpClientModule),
     provideHttpClient(withFetch()),
-    provideHttpClient(),
+    // provideHttpClient(),
     {provide: LOCALE_ID, useValue: 'pt'}
   ]
 };

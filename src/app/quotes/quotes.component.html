@@ -1,5 +1,23 @@
 <div class="quotes">
-  <app-card class="dolar" [currency]="dolarCanadense"></app-card>
-  <app-card class="peso" [currency]="pesoArgentino"></app-card>
-  <app-card class="libra" [currency]="libraEsterlina"></app-card>
+  <app-card
+    class="dolar"
+    [currency]="dolarCanadense"
+    [name]="'Dólar Canadence'"
+    (refresh)="getQuatation()"
+    [errorApi]="errorQuatations"
+  ></app-card>
+  <app-card
+    class="peso"
+    [currency]="pesoArgentino"
+    [name]="'Peso Argentino'"
+    (refresh)="getQuatation()"
+    [errorApi]="errorQuatations"
+  ></app-card>
+  <app-card
+    class="libra"
+    [currency]="libraEsterlina"
+    [name]="'Libra Esterlina'"
+    (refresh)="getQuatation()"
+    [errorApi]="errorQuatations"
+  ></app-card>
 </div>

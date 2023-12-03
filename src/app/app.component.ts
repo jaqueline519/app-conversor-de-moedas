@@ -11,5 +11,4 @@ import { HeaderComponent } from './header/header.component';
     imports: [CommonModule, RouterOutlet, HeaderComponent],
 })
 export class AppComponent {
-  title = 'app-conversor-de-moedas';
 }

@@ -1,8 +1,9 @@
 import { Component, NgZone, OnDestroy, OnInit, inject, ChangeDetectorRef, ChangeDetectionStrategy  } from '@angular/core';
 import { CardComponent } from '../shared/components/card/card.component';
-import { QuotationsService } from '../shared/services/quotations.service';
 import { CurrencyModel } from '../shared/models/currency.model';
-import { Observable, Subscription, switchMap, timer } from 'rxjs';
+import { Observable, Subscription, catchError, switchMap, throwError, timer } from 'rxjs';
+import { LoadingService } from '../shared/services/loading/loading.service';
+import { QuotationsService } from '../shared/services/quatations/quotations.service';
 @Component({
   selector: 'app-quotes',
   standalone: true,
@@ -13,28 +14,44 @@ import { Observable, Subscription, switchMap, timer } from 'rxjs';
 })
 export class QuotesComponent implements OnInit, OnDestroy {
 
-  dolarCanadense: CurrencyModel | any;
-  pesoArgentino: CurrencyModel | any;
-  libraEsterlina: CurrencyModel | any;
+  dolarCanadense: CurrencyModel | any
+  pesoArgentino: CurrencyModel | any
+  libraEsterlina: CurrencyModel | any
+  errorQuatations: boolean = false
   private subscription: Subscription = new Subscription()
-  timer$: Observable<number> = timer(180000, 180000);
+  timer$: Observable<number> = timer(180000, 180000)
 
   constructor(
     private quatationsService: QuotationsService,
-    private changeDetection: ChangeDetectorRef
+    private changeDetection: ChangeDetectorRef,
+    private loadingService: LoadingService
   ) {
     inject(NgZone).runOutsideAngular(() => {
-    this.toUpdateQuatation()
+      this.toUpdateQuatation()
     })
 
   }
   ngOnInit(): void {
+    this.loadingService.showLoading()
     this.getQuatation()
   }
 
   getQuatation() {
-    this.quatationsService.getQuotations('CAD-BRL,ARS-BRL,GBP-BRL')
-      .subscribe(response => {
+    this.loadingService.showLoading()
+    this.errorQuatations = true
+    this.quatationsService.getQuotations(`CAD-BRL,ARS-BRL,GBP-BRL`)
+    .pipe(
+      catchError(error => {
+        this.loadingService.hideLoading()
+        if(error){
+          this.errorQuatations = true
+          this.changeDetection.detectChanges()
+        }
+        return throwError(() => error)
+      })
+    )
+      .subscribe((response: any) => {
+        this.loadingService.hideLoading()
         this.returnObjectsCurrencys(response)
       })
   }
@@ -46,11 +63,22 @@ export class QuotesComponent implements OnInit, OnDestroy {
   }
 
   toUpdateQuatation() {
+    this.loadingService.showLoading()
     this.subscription = this.timer$.pipe(
       switchMap(() => this.quatationsService.getQuotations(`CAD-BRL,ARS-BRL,GBP-BRL`)),
-    ).subscribe(response => {
+    )
+    .pipe(
+      catchError(error => {
+        if(error){
+          this.loadingService.hideLoading()
+          this.changeDetection.detectChanges()
+        }
+        return throwError(() => error)
+      })
+    )
+    .subscribe(response => {
+      this.loadingService.hideLoading()
       this.returnObjectsCurrencys(response)
-      this.changeDetection.detectChanges();
     })
   }
 
@@ -58,6 +86,7 @@ export class QuotesComponent implements OnInit, OnDestroy {
     this.dolarCanadense = { ...objectCurrency['CADBRL'], name: this.formatText(objectCurrency['CADBRL']) }
     this.pesoArgentino = { ...objectCurrency['ARSBRL'], name: this.formatText(objectCurrency['ARSBRL']) }
     this.libraEsterlina = { ...objectCurrency['GBPBRL'], name: this.formatText(objectCurrency['GBPBRL']) }
+    this.changeDetection.detectChanges();
   }
 
   ngOnDestroy(): void {
