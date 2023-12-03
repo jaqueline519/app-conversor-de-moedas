@@ -3,7 +3,7 @@
     <h2>{{ name }}</h2>
   </div>
   @if(currency){
-  <div class="card-body" [ngClass]="classColor">
+  <div class="card-body" [ngClass]="currency.bid | colors">
     {{ currency.bid | currency:'BRL'}}
   </div>
   <div class="card-footer">
