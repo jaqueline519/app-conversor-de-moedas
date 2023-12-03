@@ -20,14 +20,13 @@ export class CardComponent implements OnInit{
   @Input() name: string = ''
   @Output() refresh = new EventEmitter<boolean>()
   @Input() errorApi: boolean = false
+  @Input() date: Date | undefined
   loading: boolean = false
   classColor: string = ''
-  currentDateTime: Date = new Date();
 
   ngOnInit(): void {
     this.loadingService.loading$.subscribe((loading) => {
       this.loading = loading;
-      this.currentDateTime = new Date();
     });
   }
 

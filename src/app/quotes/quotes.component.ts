@@ -10,6 +10,7 @@ import { classesKey, currenciesKey, namesKey } from '../shared/dictionaries/dict
   selector: 'app-quotes',
   standalone: true,
   imports: [CommonModule, CardComponent],
+  providers: [QuotationsService, LoadingService],
   templateUrl: './quotes.component.html',
   styleUrl: './quotes.component.sass',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -21,11 +22,11 @@ export class QuotesComponent implements OnInit, OnDestroy {
   libraEsterlina: CurrencyModel | any
   errorQuotations: boolean = false
   private subscription: Subscription = new Subscription()
-  timer$: Observable<number> = timer(180000, 180000)
   currencies: { [key: string]: CurrencyModel } = currenciesKey
   classes: { [key: string]: any } = classesKey
   names: { [key: string]: any } = namesKey
-
+  date: any
+  timer$: Observable<number> = timer(0, 180000)
   constructor(
     private quatationsService: QuotationsService,
     private changeDetection: ChangeDetectorRef,
@@ -38,7 +39,6 @@ export class QuotesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadingService.showLoading()
-    this.getQuotation()
   }
 
   getQuotation() {
@@ -57,31 +57,31 @@ export class QuotesComponent implements OnInit, OnDestroy {
       )
       .subscribe((response: any) => {
         this.loadingService.hideLoading()
-        this.returnObjectsCurrencys(response)
+        this.date = this.quatationsService.getLastUpdate()
+        this.returnObjectsCurrencies(response)
       })
   }
 
   toUpdateQuatation() {
     this.loadingService.showLoading()
     this.subscription = this.timer$.pipe(
+      catchError(error => {
+            if (error) {
+              this.loadingService.hideLoading()
+              this.changeDetection.detectChanges()
+            }
+            return throwError(() => error)
+          }),
       switchMap(() => this.quatationsService.getQuotations('CAD-BRL,ARS-BRL,GBP-BRL')),
     )
-      .pipe(
-        catchError(error => {
-          if (error) {
-            this.loadingService.hideLoading()
-            this.changeDetection.detectChanges()
-          }
-          return throwError(() => error)
-        })
-      )
       .subscribe(response => {
         this.loadingService.hideLoading()
-        this.returnObjectsCurrencys(response)
+        this.date = this.quatationsService.getLastUpdate()
+        this.returnObjectsCurrencies(response)
       })
   }
 
-  returnObjectsCurrencys(objectCurrency: any) {
+  returnObjectsCurrencies(objectCurrency: any) {
     this.currencies['CAD-BRL'] = objectCurrency['CADBRL']
     this.currencies['ARS-BRL'] = objectCurrency['ARSBRL']
     this.currencies['GBP-BRL'] = objectCurrency['GBPBRL']
