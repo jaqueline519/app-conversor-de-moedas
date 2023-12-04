@@ -37,7 +37,7 @@ Depois de instalar as dependências, você pode iniciar o servidor de desenvolvi
 - No bash ou prompt de comando, na pasta raiz do projeto `app-conversor-de-moedas`, certifique-se de não estar utilizando a porta 4200 (não deve existir outro servidor local ativo em http://localhost:4200/):
 
     ```bash
-    npm  start --open
+    npm run start --open
     ```
 
     Este comando iniciará o servidor de desenvolvimento e abrirá automaticamente uma janela no browser em [http://localhost:4200/](http://localhost:4200/).
@@ -51,12 +51,6 @@ Depois de instalar as dependências, você pode iniciar o servidor de desenvolvi
     Neste caso, o servidor ainda será iniciado da mesma forma, e você pode acessar manualmente o link [http://localhost:4200/](http://localhost:4200/).
 
 ## Scripts Úteis
-
-- **Modo de Observação para Desenvolvimento:**
-
-    ```bash
-    npm run watch
-    ```
 
 - **Executar Testes Unitários:**
 
@@ -72,8 +66,19 @@ Depois de instalar as dependências, você pode iniciar o servidor de desenvolvi
 
 - **Abrir o Cypress (Testes E2E):**
 
-    Certifique-se de ter seu ambiente configurado e o Cypress instalado:
+ **Importante: é necessário estar com servidor executando antes de prosseguir com a visualização dos testes e2e**
+ 
+    Certifique-se de ter seu ambiente configurado e o Cypress instalado globalmente:
 
     ```bash
     npm run cy:open
     ```
+
+- **Visualizar vídeo de execução dos testes e2e:**
+
+
+    ```bash
+    npm run cy:run
+    ```
+
+  Utilizando este comando o cypress executará os testes no console, gerando um vídeo que ficará disponível no diretório do projeto acessando app-conversor-de-moedas/cypress/e2e/results/videos
