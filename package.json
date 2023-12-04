@@ -14,6 +14,12 @@
     "lint": "tsc --project tsconfig.lint.json",
     "lint:cypress": "tsc --project cypress/tsconfig.json"
   },
+  "jest": {
+    "preset": "jest-preset-angular",
+    "setupFilesAfterEnv": [
+      "<rootDir>/setup-jest.ts"
+    ]
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^17.0.0",

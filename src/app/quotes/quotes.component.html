@@ -1,10 +1,11 @@
 <div class="quotes">
-  <app-card *ngFor="let currencyCode of ['CAD-BRL', 'ARS-BRL', 'GBP-BRL']"
-  [class]="classes[currencyCode]"
-  [name]="names[currencyCode]"
-  [currency]="currencies[currencyCode]"
-  (refresh)="getQuotation()"
-  [errorApi]="errorQuotations"
-  [date]="date"
-></app-card>
+  <app-card
+    *ngFor="let currencyCode of ['CAD-BRL', 'ARS-BRL', 'GBP-BRL']"
+    [class]="classes[currencyCode]"
+    [name]="names[currencyCode]"
+    [currency]="currencies[currencyCode]"
+    (refresh)="getQuotation()"
+    [errorApi]="errorQuotations"
+    [date]="date"
+  ></app-card>
 </div>
