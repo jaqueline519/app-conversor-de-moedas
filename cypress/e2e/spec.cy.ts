@@ -18,8 +18,8 @@ describe('Test currency converter app', () => {
     cy.get('.dolar > .card > .align > button.color-gray').should('be.visible').wait(1000).click();
 
     cy.wait('@apiRequestSuccess')
-    cy.reload()
     cy.screenshot()
+    cy.reload()
   })
 
   it('check header component', () => {
