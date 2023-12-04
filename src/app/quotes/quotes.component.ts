@@ -10,12 +10,10 @@ import {
 import { CardComponent } from '../shared/components/card/card.component';
 import { CurrencyModel } from '../shared/models/currency.model';
 import {
-  Observable,
   Subscription,
   catchError,
   switchMap,
   throwError,
-  timer,
 } from 'rxjs';
 import { LoadingService } from '../shared/services/loading/loading.service';
 import { QuotationsService } from '../shared/services/quatations/quotations.service';
@@ -39,12 +37,12 @@ export class QuotesComponent implements OnInit, OnDestroy {
   pesoArgentino: CurrencyModel | any;
   libraEsterlina: CurrencyModel | any;
   errorQuotations: boolean = false;
-  private subscription: Subscription = new Subscription();
   currencies: { [key: string]: CurrencyModel } = currenciesKey;
   classes: { [key: string]: any } = classesKey;
   names: { [key: string]: any } = namesKey;
   date: any;
-  timer$: Observable<number> = timer(0, 180000);
+  timer$: Subscription = new Subscription();
+
   constructor(
     private quatationsService: QuotationsService,
     private changeDetection: ChangeDetectorRef,
@@ -55,7 +53,7 @@ export class QuotesComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {''
+  ngOnInit(): void {
     this.loadingService.showLoading();
   }
 
@@ -82,7 +80,7 @@ export class QuotesComponent implements OnInit, OnDestroy {
 
   toUpdateQuatation() {
     this.loadingService.showLoading();
-    this.subscription = this.timer$
+    this.timer$ = this.quatationsService.timer$
       .pipe(
         switchMap(() =>
           this.quatationsService.getQuotations('CAD-BRL,ARS-BRL,GBP-BRL')
@@ -113,6 +111,6 @@ export class QuotesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.timer$.unsubscribe();
   }
 }

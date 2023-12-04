@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, shareReplay, tap } from 'rxjs';
+import { Observable, shareReplay, tap, timer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,8 @@ export class QuotationsService {
   private lastUpdate: Date | null = null;
   private readonly CACHE_KEY = 'cachedQuotations';
   private readonly LAST_UPDATE_KEY = 'lastUpdate';
+  timer$: Observable<number> = new Observable()
+  private timeRemaining: number | null = null;
 
   constructor(private http: HttpClient) {
     this.initialize();
@@ -18,6 +20,10 @@ export class QuotationsService {
   private initialize() {
     const lastUpdateStr = localStorage.getItem(this.LAST_UPDATE_KEY);
     this.lastUpdate = lastUpdateStr ? new Date(lastUpdateStr) : null;
+
+    const timeRemainingStr = localStorage.getItem('timeRemaining');
+    this.timeRemaining = timeRemainingStr ? +timeRemainingStr : null;
+    this.timer$ = timer(this.timeRemaining || 0, 180000)
   }
 
   getQuotations(currency: string): Observable<any> {
@@ -41,6 +47,8 @@ export class QuotationsService {
             this.lastUpdate = new Date();
             this.setCachedData(data);
             this.setLastUpdate(this.lastUpdate);
+          this.timeRemaining = null;
+          localStorage.removeItem('timeRemaining');
           }),
           shareReplay(1)
         );
