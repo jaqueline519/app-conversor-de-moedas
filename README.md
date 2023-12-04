@@ -66,8 +66,8 @@ Depois de instalar as dependências, você pode iniciar o servidor de desenvolvi
 
 - **Abrir o Cypress (Testes E2E):**
 
- **Importante: é necessário estar com servidor executando antes de prosseguir com a visualização dos testes e2e**
- 
+  **Importante: é necessário estar com servidor executando na porta 4200 antes de prosseguir com a visualização dos testes e2e**
+
     Certifique-se de ter seu ambiente configurado e o Cypress instalado globalmente:
 
     ```bash
