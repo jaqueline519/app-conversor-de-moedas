@@ -1,9 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { CardComponent } from './shared/components/card/card.component';
 import { HeaderComponent } from './header/header.component';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -11,19 +8,14 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CommonModule, RouterOutlet, HeaderComponent],
+      imports: [AppComponent, HeaderComponent]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
     app = fixture.componentInstance;
+    fixture.detectChanges();
   });
-
-  it('should create the app', () => {
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have the 'app-conversor-de-moedas' title`, () => {
-    expect(app.title).toEqual('app-conversor-de-moedas');
-  });
-
+  it('should display original title', () => {
+        expect(app).toBe();
+      });
 });

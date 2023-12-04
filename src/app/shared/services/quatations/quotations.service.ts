@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, shareReplay, switchMap, tap, timer } from 'rxjs';
+import { Observable, shareReplay, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class QuotationsService {
   private readonly LAST_UPDATE_KEY = 'lastUpdate';
 
   constructor(private http: HttpClient) {
-    this.initialize();
+    this.initialize()
   }
 
   private initialize() {

@@ -1,27 +1,79 @@
-# AppConversorDeMoedas
+# Conversor de Moedas
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.5.
+Esta é uma aplicação Angular que exibe as cotações das moedas Dólar Canadense, Peso Argentino e Libra Esterlina, desenvolvido com Angular CLI 17.0.5.
 
-## Development server
+## Pré-requisitos
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Certifique-se de ter as seguintes instalações globais em seu ambiente para prosseguir:
 
-## Code scaffolding
+- [Node.js](https://nodejs.org/) (versão 18.17.1 ou superior)
+- [npm](https://www.npmjs.com/) (normalmente instalado juntamente com o Node.js)
+- [Angular CLI](https://angular.io/cli) (versão 17.0.5)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Instalação
 
-## Build
+1. Clone este repositório para o seu ambiente local:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+    ```bash
+    git clone https://github.com/jaqueline519/app-conversor-de-moedas.git
+    ```
 
-## Running unit tests
+2. Navegue até o diretório do projeto:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+    ```bash
+    cd app-conversor-de-moedas
+    ```
 
-## Running end-to-end tests
+3. Instale as dependências do projeto usando o npm:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+    ```bash
+    npm install
+    ```
 
-## Further help
+## Execução e Visualização no Browser
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Depois de instalar as dependências, você pode iniciar o servidor de desenvolvimento usando o seguinte comando:
+
+- No bash ou prompt de comando, na pasta raiz do projeto `app-conversor-de-moedas`, certifique-se de não estar utilizando a porta 4200 (não deve existir outro servidor local ativo em http://localhost:4200/):
+
+    ```bash
+    npm start --open
+    ```
+
+    Este comando iniciará o servidor de desenvolvimento e abrirá automaticamente uma janela no browser em [http://localhost:4200/](http://localhost:4200/).
+
+    Ou ainda, apenas execute:
+
+    ```bash
+    ng serve
+    ```
+
+    Neste caso, o servidor ainda será iniciado da mesma forma, e você pode acessar manualmente o link [http://localhost:4200/](http://localhost:4200/).
+
+## Scripts Úteis
+
+- **Modo de Observação para Desenvolvimento:**
+
+    ```bash
+    npm run watch
+    ```
+
+- **Executar Testes Unitários:**
+
+    ```bash
+    npm test
+    ```
+
+- **Executar Testes Unitários (Modo CI):**
+
+    ```bash
+    npm run test:ci
+    ```
+
+- **Abrir o Cypress (Testes E2E):**
+
+    Certifique-se de ter seu ambiente configurado e o Cypress instalado:
+
+    ```bash
+    npm run cy:open
+    ```

@@ -43,7 +43,6 @@ export class QuotesComponent implements OnInit, OnDestroy {
 
   getQuotation() {
     this.loadingService.showLoading()
-    this.errorQuotations = true
     this.quatationsService.getQuotations('CAD-BRL,ARS-BRL,GBP-BRL')
       .pipe(
         catchError(error => {
@@ -65,15 +64,18 @@ export class QuotesComponent implements OnInit, OnDestroy {
   toUpdateQuatation() {
     this.loadingService.showLoading()
     this.subscription = this.timer$.pipe(
-      catchError(error => {
-            if (error) {
-              this.loadingService.hideLoading()
-              this.changeDetection.detectChanges()
-            }
-            return throwError(() => error)
-          }),
       switchMap(() => this.quatationsService.getQuotations('CAD-BRL,ARS-BRL,GBP-BRL')),
     )
+      .pipe(
+        catchError(error => {
+          if (error) {
+            this.errorQuotations = true
+            this.loadingService.hideLoading()
+            this.changeDetection.detectChanges()
+          }
+          return throwError(() => error)
+        }),
+      )
       .subscribe(response => {
         this.loadingService.hideLoading()
         this.date = this.quatationsService.getLastUpdate()
