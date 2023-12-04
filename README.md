@@ -37,7 +37,7 @@ Depois de instalar as dependências, você pode iniciar o servidor de desenvolvi
 - No bash ou prompt de comando, na pasta raiz do projeto `app-conversor-de-moedas`, certifique-se de não estar utilizando a porta 4200 (não deve existir outro servidor local ativo em http://localhost:4200/):
 
     ```bash
-    npm start --open
+    npm  start --open
     ```
 
     Este comando iniciará o servidor de desenvolvimento e abrirá automaticamente uma janela no browser em [http://localhost:4200/](http://localhost:4200/).
