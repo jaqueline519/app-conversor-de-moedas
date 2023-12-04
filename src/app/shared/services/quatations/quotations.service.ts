@@ -12,7 +12,7 @@ export class QuotationsService {
   private readonly LAST_UPDATE_KEY = 'lastUpdate';
 
   constructor(private http: HttpClient) {
-    this.initialize()
+    this.initialize();
   }
 
   private initialize() {
@@ -20,31 +20,38 @@ export class QuotationsService {
     this.lastUpdate = lastUpdateStr ? new Date(lastUpdateStr) : null;
   }
 
-
   getQuotations(currency: string): Observable<any> {
     const cachedData = this.getCachedData();
-    if (cachedData && this.lastUpdate && this.isLessThanThreeMinutes(this.lastUpdate)) {
-      this.cachedQuotations$ = this.cachedQuotations$ || new Observable(observer => {
-        observer.next(cachedData);
-        observer.complete();
-      });
+    if (
+      cachedData &&
+      this.lastUpdate &&
+      this.isLessThanThreeMinutes(this.lastUpdate)
+    ) {
+      this.cachedQuotations$ =
+        this.cachedQuotations$ ||
+        new Observable((observer) => {
+          observer.next(cachedData);
+          observer.complete();
+        });
     } else {
-      this.cachedQuotations$ = this.http.get(`https://economia.awesomeapi.com.br/last/${currency}`).pipe(
-        tap(data => {
-          this.lastUpdate = new Date();
-          this.setCachedData(data);
-          this.setLastUpdate(this.lastUpdate);
-        }),
-        shareReplay(1),
-      );
+      this.cachedQuotations$ = this.http
+        .get(`https://economia.awesomeapi.com.br/last/${currency}`)
+        .pipe(
+          tap((data) => {
+            this.lastUpdate = new Date();
+            this.setCachedData(data);
+            this.setLastUpdate(this.lastUpdate);
+          }),
+          shareReplay(1)
+        );
     }
-    return this.cachedQuotations$
+    return this.cachedQuotations$;
   }
 
   isLessThanThreeMinutes(date: Date): boolean {
     const now = new Date();
     const differenceInMilliseconds = now.getTime() - date.getTime();
-    return differenceInMilliseconds < 154800
+    return differenceInMilliseconds < 154800;
   }
 
   private setCachedData(data: any): void {
@@ -61,6 +68,6 @@ export class QuotationsService {
   }
 
   getLastUpdate() {
-    return this.lastUpdate
+    return this.lastUpdate;
   }
 }

@@ -4,7 +4,6 @@ import { CurrencyModel } from '../../models/currency.model';
 import { LoadingService } from '../../services/loading/loading.service';
 import { ColorsPipe } from '../../pipes/colors.pipe';
 
-
 @Component({
   selector: 'app-card',
   standalone: true,
@@ -12,17 +11,16 @@ import { ColorsPipe } from '../../pipes/colors.pipe';
   templateUrl: './card.component.html',
   styleUrl: './card.component.sass',
 })
-export class CardComponent implements OnInit{
+export class CardComponent implements OnInit {
+  constructor(public loadingService: LoadingService) {}
 
-  constructor(public loadingService: LoadingService){}
-
-  @Input() currency: CurrencyModel | undefined
-  @Input() name: string = ''
-  @Output() refresh = new EventEmitter<boolean>()
-  @Input() errorApi: boolean = false
-  @Input() date: Date | undefined
-  loading: boolean = false
-  classColor: string = ''
+  @Input() currency: CurrencyModel | undefined;
+  @Input() name: string = '';
+  @Output() refresh = new EventEmitter<boolean>();
+  @Input() errorApi: boolean = false;
+  @Input() date: Date | undefined;
+  loading: boolean = false;
+  classColor: string = '';
 
   ngOnInit(): void {
     this.loadingService.loading$.subscribe((loading) => {
@@ -30,8 +28,8 @@ export class CardComponent implements OnInit{
     });
   }
 
-  onRefresh(){
-    this.refresh.emit(true)
+  onRefresh() {
+    this.refresh.emit(true);
   }
 
   isObjectNotEmpty(obj: CurrencyModel): boolean {

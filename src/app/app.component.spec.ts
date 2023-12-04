@@ -8,14 +8,15 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent, HeaderComponent]
+      imports: [AppComponent, HeaderComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
     app = fixture.componentInstance;
     fixture.detectChanges();
   });
-  it('should display original title', () => {
-        expect(app).toBe();
-      });
+
+  it('should create the app', () => {
+    expect(app).toBeTruthy();
+  });
 });

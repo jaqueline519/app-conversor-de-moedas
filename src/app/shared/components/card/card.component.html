@@ -4,7 +4,7 @@
   </div>
   @if(currency && isObjectNotEmpty(currency)){
   <div class="card-body" [ngClass]="currency.bid | colors">
-    {{ currency.bid | currency:'BRL'}}
+    {{ currency.bid | currency : "BRL" }}
   </div>
   <div class="card-footer">
     <div>
@@ -13,17 +13,17 @@
     </div>
     <div>
       <h3>Atualizado</h3>
-      <span>{{date | date : "HH:mm:ss" }}</span>
+      <span>{{ date | date : "HH:mm:ss" }}</span>
     </div>
   </div>
   } @else if(errorApi && !loading){
-    <div class="align error">
-      <p class="color-gray">Algo deu errado</p>
-      <button class="color-gray" (click)="onRefresh()">RECARREGAR</button>
-    </div>
-  }  @else if(loading){
-    <div class="align" data-cy="loading">
-      <img src="./../../../../assets/images/loader.svg" alt="" />
-    </div>
+  <div class="align error">
+    <p class="color-gray">Algo deu errado</p>
+    <button class="color-gray" (click)="onRefresh()">RECARREGAR</button>
+  </div>
+  } @else if(loading){
+  <div class="align" data-cy="loading">
+    <img src="./../../../../assets/images/loader.svg" alt="" />
+  </div>
   }
 </div>

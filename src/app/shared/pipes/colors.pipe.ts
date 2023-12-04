@@ -5,7 +5,6 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true
 })
 export class ColorsPipe implements PipeTransform {
-
   transform(value: number | undefined): string {
     if (value === undefined) {
       return 'color-gray';
@@ -21,5 +20,4 @@ export class ColorsPipe implements PipeTransform {
 
     return 'color-gray';
   }
-
 }

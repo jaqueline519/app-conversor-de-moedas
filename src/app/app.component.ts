@@ -4,11 +4,10 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 
 @Component({
-    selector: 'app-root',
-    standalone: true,
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.sass',
-    imports: [CommonModule, RouterOutlet, HeaderComponent],
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.sass',
+  imports: [CommonModule, RouterOutlet, HeaderComponent],
 })
-export class AppComponent {
-}
+export class AppComponent {}
