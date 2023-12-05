@@ -2,6 +2,33 @@
 
 Esta é uma aplicação Angular que exibe as cotações das moedas Dólar Canadense, Peso Argentino e Libra Esterlina, desenvolvido com Angular CLI 17.0.5.
 
+## Executando com Docker
+
+Certifique-se de ter o Docker e o Docker Compose instalados em sua máquina antes de prosseguir.
+
+### Construa e Execute com Docker Compose:
+
+No bash ou prompt de comando, na pasta raiz do projeto `app-conversor-de-moedas`, certifique-se de não estar utilizando a porta 4200 (não deve existir outro servidor local ativo em http://localhost:4200/):
+
+execute o comando
+
+```bash
+docker-compose up -d --build
+```
+
+    Este comando iniciará o servidor de desenvolvimento e abrirá automaticamente uma janela no browser em [http://localhost:4200/currency-converter](http://localhost:4200/).
+
+
+### Parar o servidor Docker:
+
+Para parar o servidor Docker, execute o seguinte comando na pasta raiz do projeto `app-conversor-de-moedas`:
+
+```bash
+docker-compose down
+```
+
+## Executando sem o Docker
+
 ## Pré-requisitos
 
 Certifique-se de ter as seguintes instalações globais em seu ambiente para prosseguir:
@@ -40,7 +67,7 @@ Depois de instalar as dependências, você pode iniciar o servidor de desenvolvi
     npm run start --open
     ```
 
-    Este comando iniciará o servidor de desenvolvimento e abrirá automaticamente uma janela no browser em [http://localhost:4200/](http://localhost:4200/).
+    Este comando iniciará o servidor de desenvolvimento e abrirá automaticamente uma janela no browser em [http://localhost:4200/currency-converter](http://localhost:4200/).
 
     Ou ainda, apenas execute:
 
@@ -48,7 +75,7 @@ Depois de instalar as dependências, você pode iniciar o servidor de desenvolvi
     ng serve
     ```
 
-    Neste caso, o servidor ainda será iniciado da mesma forma, e você pode acessar manualmente o link [http://localhost:4200/](http://localhost:4200/).
+    Neste caso, o servidor ainda será iniciado da mesma forma, e você pode acessar manualmente o link [[http://localhost:4200/currency-converter]](http://localhost:4200/).
 
 ## Scripts Úteis
 
@@ -76,9 +103,8 @@ Depois de instalar as dependências, você pode iniciar o servidor de desenvolvi
 
 - **Visualizar vídeo de execução dos testes e2e:**
 
-
     ```bash
     npm run cy:run
     ```
 
-  Utilizando este comando o cypress executará os testes no console, gerando um vídeo que ficará disponível no diretório do projeto acessando app-conversor-de-moedas/cypress/e2e/results/videos
+  Utilizando este comando, o Cypress executará os testes no console, gerando um vídeo que ficará disponível no diretório do projeto acessando app-conversor-de-moedas/cypress/e2e/results/videos

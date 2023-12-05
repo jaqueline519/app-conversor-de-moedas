@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  app-conversor-de-moedas:
+    image: app-conversor-de-moedas
+    build: .
+    environment:
+      NODE_ENV: production
+    ports:
+      - 4200:80
