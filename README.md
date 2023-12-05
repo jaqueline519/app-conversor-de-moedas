@@ -2,6 +2,9 @@
 
 Esta é uma aplicação Angular que exibe as cotações das moedas Dólar Canadense, Peso Argentino e Libra Esterlina, desenvolvido com Angular CLI 17.0.5.
 
+## Deploy realizado  [para acessar clique aqui](https://656e7ca6d469a61283dc3a23--dapper-empanada-a4fe34.netlify.app/currency-converter)
+
+
 ## Executando com Docker
 
 Certifique-se de ter o Docker e o Docker Compose instalados em sua máquina antes de prosseguir.

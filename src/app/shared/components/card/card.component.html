@@ -7,11 +7,11 @@
     {{ currency.bid | currency : "BRL" }}
   </div>
   <div class="card-footer">
-    <div>
+    <div class="variation">
       <h3>variação(%)</h3>
       <span>{{ currency.varBid }}</span>
     </div>
-    <div>
+    <div class="date">
       <h3>Atualizado</h3>
       <span>{{ date | date : "HH:mm:ss" }}</span>
     </div>

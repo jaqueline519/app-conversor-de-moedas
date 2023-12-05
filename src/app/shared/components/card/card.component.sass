@@ -23,15 +23,14 @@ $blueColor: #3684CB
 
 .card-body
   display: flex
-  font-size: 2rem
+  font-size: 2.3rem
   align-items: center
   justify-content: center
   font-weight: 600
 
 .card-footer
-  padding: 20px
-  display: grid
-  grid-template-columns: repeat(2, 1fr)
+  display: flex
+  border-top: 1px solid $backgound-header
 
 h2, span
   color: $darkGrayColor
@@ -42,6 +41,14 @@ h2
 h3
   font-size: 12px
   font-weight: 600
+
+.variation, .date
+  display: flex
+  width: 50%
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  border-left: 2px solid $backgound-header
 
 span
   font-size: 12px
